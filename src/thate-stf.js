@@ -1,13 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const XLSX = require('xlsx')
-
-const basePath = process.cwd()
-const config = JSON.parse(fs.readFileSync(path.join(basePath, '.thate.json'), 'utf8'))
-if (!config.sourceXlsxTranslated || !config.outputStf) {
-  console.error('Configuration file is missing required properties: sourceXlsxTranslated or outputStf')
-  process.exit(1)
-}
+const utils = require('./utils/utils.js')
+const basePath = utils.getBasePath()
+const config = utils.getConfigFile()
 
 fs.readdirSync(path.join(basePath, config.sourceXlsxTranslated)).forEach(fileName => {
   console.log(`Processing file: ${fileName}`)
