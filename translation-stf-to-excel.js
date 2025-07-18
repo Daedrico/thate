@@ -1,21 +1,23 @@
+#!/usr/bin/env node
+
 const fs = require('fs')
 const path = require('path')
 const XLSX = require('xlsx')
 
-const stuffToRemove = require('./utils.js').stuffToRemove
+const configFile = './.ttconfig.json'
+const config = JSON.parse(fs.readFileSync(configFile, 'utf8'))
 
-const sourceStfFolder = path.join('utils', 'translations', 'source-stf')
-
-fs.readdirSync(sourceStfFolder).forEach(fileName => {
+fs.readdirSync(config.sourceStf).forEach(fileName => {
   console.log(`Processing file: ${fileName}`)
-  const filePath = path.join('utils', 'translations', 'source-stf', fileName)
-  const revisedFilePath = path.join('utils', 'translations', 'source-stf-revised', fileName)
+  const filePath = path.join(config.sourceStf, fileName)
+  console.log(filePath)
+  const revisedFilePath = path.join(config.outputStfRevised, fileName)
 
   // create the revised stf
   const revisedText = fs.readFileSync(filePath, 'utf8')
     .split('\n')
     .filter(v => {
-      return !stuffToRemove.some(s => v.includes(s))
+      return !config.stuffToRemove.some(s => v.includes(s))
     })
 
   fs.writeFileSync(revisedFilePath, revisedText.join('\n'), 'utf8')
@@ -36,7 +38,7 @@ fs.readdirSync(sourceStfFolder).forEach(fileName => {
     .filter(v => v)
 
   const revisedExcelDataReduced = revisedExcelData.reduce((acc, v) => {
-  // const
+    // const
     const key = v[0]
     const prefixes = key.split('.')
     const itemType = prefixes[0]

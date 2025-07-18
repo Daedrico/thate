@@ -1,13 +1,16 @@
+#!/usr/bin/env node
+
 const fs = require('fs')
 const path = require('path')
 const XLSX = require('xlsx')
 
-const translatedExcelFolder = path.join('utils', 'translations', 'translated-xlsx')
+const configFile = './.ttconfig.json'
+const config = JSON.parse(fs.readFileSync(configFile, 'utf8'))
 
-fs.readdirSync(translatedExcelFolder).forEach(fileName => {
+fs.readdirSync(config.sourceXlsxTranslated).forEach(fileName => {
   console.log(`Processing file: ${fileName}`)
-  const excelFilePath = path.join('utils', 'translations', 'translated-xlsx', fileName)
-  const stfFilePath = path.join('utils', 'translations', 'output-stf', `${fileName}.stf`)
+  const excelFilePath = path.join(config.sourceXlsxTranslated, fileName)
+  const stfFilePath = path.join(config.outputStf, `${fileName}.stf`)
 
   // read the excel
   const workbook = XLSX.read(excelFilePath, { type: 'file' })
