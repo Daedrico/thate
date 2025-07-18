@@ -1,0 +1,13 @@
+{
+  "outputStf": "utils/translations/output-stf",
+  "outputStfRevised": "utils/translations/source-stf-revised",
+  "outputXlsx": "utils/translations/output-xlsx",
+  "sourceStf": "utils/translations/source-stf",
+  "sourceXlsxTranslated": "utils/translations/translated-xlsx",
+  "stuffToRemove": [
+    "ActionPlanTemplateItem.",
+    "PicklistValue.Standard.ageOver",
+    "Pricebook2.",
+    "QuickAction."
+  ]
+}
