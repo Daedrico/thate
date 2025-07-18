@@ -1,19 +1,27 @@
 {
   "name": "translation-helper",
   "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
+  "description": "Tool to help with Salesforce translation files",
   "author": "Stefano Brivio",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/Daedrico/salesforce-translation-helper"
+  },
+  "keywords": [
+    "salesforce",
+    "translation",
+    "excel",
+    "stf"
+  ],
+  "homepage": "https://github.com/Daedrico/salesforce-translation-helper#readme",
   "type": "commonjs",
   "scripts": {
     "ttexcel": "./translation-stf-to-excel.js",
     "ttstf": "./translation-excel-to-stf.js"
   },
-  "bin": {
-    "ttexcel": "./translation-stf-to-excel.js",
-    "ttstf": "./translation-excel-to-stf.js"
-  },
+  "bin": "src/tt.js",
   "dependencies": {
+    "commander": "^14.0.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
