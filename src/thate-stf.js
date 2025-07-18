@@ -2,13 +2,17 @@ const fs = require('fs')
 const path = require('path')
 const XLSX = require('xlsx')
 
-const configFile = './.ttconfig.json'
-const config = JSON.parse(fs.readFileSync(configFile, 'utf8'))
+const basePath = process.cwd()
+const config = JSON.parse(fs.readFileSync(path.join(basePath, '.thate.json'), 'utf8'))
+if (!config.sourceXlsxTranslated || !config.outputStf) {
+  console.error('Configuration file is missing required properties: sourceXlsxTranslated or outputStf')
+  process.exit(1)
+}
 
-fs.readdirSync(config.sourceXlsxTranslated).forEach(fileName => {
+fs.readdirSync(path.join(basePath, config.sourceXlsxTranslated)).forEach(fileName => {
   console.log(`Processing file: ${fileName}`)
-  const excelFilePath = path.join(config.sourceXlsxTranslated, fileName)
-  const stfFilePath = path.join(config.outputStf, `${fileName}.stf`)
+  const excelFilePath = path.join(basePath, config.sourceXlsxTranslated, fileName)
+  const stfFilePath = path.join(basePath, config.outputStf, `${fileName}.stf`)
 
   // read the excel
   const workbook = XLSX.read(excelFilePath, { type: 'file' })

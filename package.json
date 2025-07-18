@@ -1,5 +1,5 @@
 {
-  "name": "translation-helper",
+  "name": "thate",
   "version": "1.0.0",
   "description": "Tool to help with Salesforce translation files",
   "author": "Stefano Brivio",
@@ -15,11 +15,7 @@
   ],
   "homepage": "https://github.com/Daedrico/salesforce-translation-helper#readme",
   "type": "commonjs",
-  "scripts": {
-    "ttexcel": "./translation-stf-to-excel.js",
-    "ttstf": "./translation-excel-to-stf.js"
-  },
-  "bin": "src/tt.js",
+  "bin": "src/thate.js",
   "dependencies": {
     "commander": "^14.0.0",
     "xlsx": "^0.18.5"

@@ -2,14 +2,17 @@ const fs = require('fs')
 const path = require('path')
 const XLSX = require('xlsx')
 
-const configFile = './.ttconfig.json'
-const config = JSON.parse(fs.readFileSync(configFile, 'utf8'))
+const basePath = process.cwd()
+const config = JSON.parse(fs.readFileSync(path.join(basePath, '.thate.json'), 'utf8'))
+if (!config.sourceStf || !config.outputStfRevised) {
+  console.error('Configuration file is missing required properties: sourceStf or outputStfRevised')
+  process.exit(1)
+}
 
-fs.readdirSync(config.sourceStf).forEach(fileName => {
+fs.readdirSync(path.join(basePath, config.sourceStf)).forEach(fileName => {
   console.log(`Processing file: ${fileName}`)
-  const filePath = path.join(config.sourceStf, fileName)
-  console.log(filePath)
-  const revisedFilePath = path.join(config.outputStfRevised, fileName)
+  const filePath = path.join(basePath, config.sourceStf, fileName)
+  const revisedFilePath = path.join(basePath, config.outputStfRevised, fileName)
 
   // create the revised stf
   const revisedText = fs.readFileSync(filePath, 'utf8')
