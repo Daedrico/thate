@@ -5,12 +5,20 @@
   "license": "ISC",
   "author": "Stefano Brivio",
   "type": "commonjs",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ttexcel": "./translation-stf-to-excel.js",
+    "ttstf": "./translation-excel-to-stf.js"
   },
   "bin": {
     "ttexcel": "./translation-stf-to-excel.js",
-    "ttstfile": "./translation-excel-to-stf.js"
+    "ttstf": "./translation-excel-to-stf.js"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.31.0",
+    "eslint": "^9.31.0",
+    "globals": "^16.3.0"
   }
 }

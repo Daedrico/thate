@@ -1,0 +1,14 @@
+{
+  "editor.formatOnSave": true,
+  "files.trimTrailingWhitespace": true,
+  "editor.trimAutoWhitespace": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "editor.rulers": [
+    {
+      "column": 120,
+      "color": "#dac9a5"
+    }
+  ]
+}
