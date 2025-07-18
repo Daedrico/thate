@@ -5,7 +5,7 @@
   "author": "Stefano Brivio",
   "license": "MIT",
   "repository": {
-    "url": "https://github.com/Daedrico/salesforce-translation-helper"
+    "url": "https://github.com/Daedrico/thate"
   },
   "keywords": [
     "salesforce",
@@ -13,7 +13,7 @@
     "excel",
     "stf"
   ],
-  "homepage": "https://github.com/Daedrico/salesforce-translation-helper#readme",
+  "homepage": "https://github.com/Daedrico/thate#readme",
   "type": "commonjs",
   "bin": "src/thate.js",
   "dependencies": {
