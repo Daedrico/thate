@@ -6,14 +6,14 @@
 - [🚀 Features](#%F0%9F%9A%80-features)
 - [📦 Installation](#%F0%9F%93%A6-installation)
 - [🛠️ Usage](#%F0%9F%9B%A0%EF%B8%8F-usage)
-  * [Convert STF to Excel](#convert-stf-to-excel)
-  * [Convert Excel to STF](#convert-excel-to-stf)
+  - [Convert STF to Excel](#convert-stf-to-excel)
+  - [Convert Excel to STF](#convert-excel-to-stf)
 - [🛠 Configuration File: `.thate.json`](#%F0%9F%9B%A0-configuration-file-thatejson)
-  * [📄 Example `.thate.json`](#%F0%9F%93%84-example-thatejson)
+  - [📄 Example `.thate.json`](#%F0%9F%93%84-example-thatejson)
 - [📝 License](#%F0%9F%93%9D-license)
 - [📝 ChangeLog](#%F0%9F%93%9D-changelog)
-  * [1.0.2](#102)
-  * [1.0.0](#100)
+  - [1.0.2](#102)
+  - [1.0.0](#100)
 
 <!-- tocstop -->
 
@@ -100,4 +100,4 @@ MIT License
 
 ### 1.0.0
 
-- That is born!
+- thate is born!
