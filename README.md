@@ -11,6 +11,9 @@
 - [🛠 Configuration File: `.thate.json`](#%F0%9F%9B%A0-configuration-file-thatejson)
   * [📄 Example `.thate.json`](#%F0%9F%93%84-example-thatejson)
 - [📝 License](#%F0%9F%93%9D-license)
+- [📝 ChangeLog](#%F0%9F%93%9D-changelog)
+  * [1.0.2](#102)
+  * [1.0.0](#100)
 
 <!-- tocstop -->
 
@@ -88,3 +91,13 @@ This file allows you to specify default paths for input/output and define rules 
 ## 📝 License
 
 MIT License
+
+## 📝 ChangeLog
+
+### 1.0.2
+
+- Improved error handling for missing folders.
+
+### 1.0.0
+
+- That is born!
