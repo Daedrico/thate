@@ -94,6 +94,10 @@ MIT License
 
 ## 📝 ChangeLog
 
+### 1.0.3
+
+- typo
+
 ### 1.0.2
 
 - Improved error handling for missing folders.
