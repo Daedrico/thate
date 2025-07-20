@@ -1,17 +1,12 @@
-const fs = require('fs')
-const path = require('path')
 const XLSX = require('xlsx')
 const utils = require('./utils/utils.js')
-const basePath = utils.getBasePath()
 const config = utils.getConfigFile()
 
-fs.readdirSync(path.join(basePath, config.sourceXlsxTranslated)).forEach(fileName => {
+utils.readFolder(config.sourceXlsxTranslated).forEach(fileName => {
   console.log(`Processing file: ${fileName}`)
-  const excelFilePath = path.join(basePath, config.sourceXlsxTranslated, fileName)
-  const stfFilePath = path.join(basePath, config.outputStf, `${fileName}.stf`)
 
   // read the excel
-  const workbook = XLSX.read(excelFilePath, { type: 'file' })
+  const workbook = utils.readExcel(config.sourceXlsxTranslated, fileName)
 
   const rawSheetValues = workbook.SheetNames
     .flatMap(v => {
@@ -41,5 +36,5 @@ fs.readdirSync(path.join(basePath, config.sourceXlsxTranslated)).forEach(fileNam
     .concat(items)
     .join('\n')
 
-  fs.writeFileSync(stfFilePath, dataString, 'utf8')
+  utils.writeFile(config.outputStf, `${fileName}.stf`, dataString)
 })

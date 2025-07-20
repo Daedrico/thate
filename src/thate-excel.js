@@ -1,28 +1,20 @@
-const fs = require('fs')
-const path = require('path')
 const XLSX = require('xlsx')
-
 const utils = require('./utils/utils.js')
-const basePath = utils.getBasePath()
 const config = utils.getConfigFile()
 
-fs.readdirSync(path.join(basePath, config.sourceStf)).forEach(fileName => {
+utils.readFolder(config.sourceStf).forEach(fileName => {
   console.log(`Processing file: ${fileName}`)
-  const filePath = path.join(basePath, config.sourceStf, fileName)
-  const revisedFilePath = path.join(basePath, config.outputStfRevised, fileName)
 
   // create the revised stf
-  const revisedText = fs.readFileSync(filePath, 'utf8')
+  const revisedText = utils.readFile(config.sourceStf, fileName, 'utf8')
     .split('\n')
     .filter(v => {
       return !config.stuffToRemove.some(s => v.includes(s))
     })
 
-  fs.writeFileSync(revisedFilePath, revisedText.join('\n'), 'utf8')
+  utils.writeFile(config.outputStfRevised, fileName, revisedText.join('\n'))
 
   // create the excel
-  const filePathExcel = path.join('utils', 'translations', 'output-xlsx', `${fileName}.xlsx`)
-
   const revisedExcelData = revisedText
     .filter(v => v && !v.startsWith('#') && !v.startsWith('-') && v.trim() !== '')
     .map(v => {
@@ -111,5 +103,5 @@ fs.readdirSync(path.join(basePath, config.sourceStf)).forEach(fileName => {
       XLSX.utils.book_append_sheet(workbook, worksheet, itemType)
     })
 
-  XLSX.writeFile(workbook, filePathExcel, { compression: true })
+  utils.writeExcel(workbook, config.outputXlsx, `${fileName}.xlsx`)
 })
