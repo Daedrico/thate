@@ -1,6 +1,13 @@
+const { program } = require('commander')
 const XLSX = require('xlsx')
 const utils = require('./utils/utils.js')
 const config = utils.getConfigFile()
+
+program
+  .option('-o, --omit', 'Omit translated values from the Excel file output')
+  .parse(process.argv)
+
+const options = program.opts()
 
 utils.readFolder(config.sourceStf).forEach(fileName => {
   console.log(`Processing file: ${fileName}`)
@@ -90,7 +97,7 @@ utils.readFolder(config.sourceStf).forEach(fileName => {
       }
     }
 
-    acc[itemType].push(item)
+    if (!(options.omit && item.translatedValue)) acc[itemType].push(item)
 
     return acc
   }, {})
