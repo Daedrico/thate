@@ -35,70 +35,46 @@ utils.readFolder(config.sourceStf).forEach(fileName => {
     .filter(v => v)
 
   const revisedExcelDataReduced = revisedExcelData.reduce((acc, v) => {
-    // const
     const key = v[0]
-    const prefixes = key.split('.')
-    const itemType = prefixes[0]
-    if (!(itemType in acc)) acc[itemType] = []
+    const item = utils.buildItem(key, v[1], v[2])
+    if (!(item.itemType in acc)) acc[item.itemType] = []
+    if (!(options.omit && item.translatedValue)) acc[item.itemType].push(item)
+    return acc
+  }, {})
 
-    let item = {
-      key
-    }
+  const workbook = XLSX.utils.book_new()
+  Object.entries(revisedExcelDataReduced)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .forEach(([itemType, v]) => {
+      const worksheet = XLSX.utils.json_to_sheet(v)
+      XLSX.utils.book_append_sheet(workbook, worksheet, itemType)
+    })
 
-    if (itemType === 'CustomField') {
-      item = {
-        ...item,
-        object: prefixes[1],
-        field: prefixes[2],
-        type: prefixes[3],
-        value: v[1],
-        translatedValue: v[2]
-      }
-    } else if (itemType === 'LayoutSection') {
-      item = {
-        ...item,
-        object: prefixes[1],
-        layout: prefixes[2],
-        section: prefixes[3],
-        value: v[1],
-        translatedValue: v[2]
-      }
-    } else if (itemType === 'PicklistValue') {
-      const prefixesSize = prefixes.length
-      item = {
-        ...item,
-        type: prefixesSize === 4 ? prefixes[1] : 'global value set',
-        picklist: prefixesSize === 4 ? prefixes[2] : prefixes[1],
-        value: v[1],
-        translatedValue: v[2]
-      }
-    } else if (itemType === 'StandardFieldHelp') {
-      item = {
-        ...item,
-        object: prefixes[1],
-        Field: prefixes[2],
-        value: v[1],
-        translatedValue: v[2]
-      }
-    } else if (itemType === 'ValidationFormula') {
-      item = {
-        ...item,
-        object: prefixes[1],
-        ValidationRule: prefixes[2],
-        value: v[1],
-        translatedValue: v[2]
-      }
-    } else {
-      item = {
-        ...item,
-        label: key.replace(itemType + '.', ''),
-        value: v[1],
-        translatedValue: v[2]
-      }
-    }
+  utils.writeExcel(workbook, config.outputXlsx, `${fileName}.xlsx`)
+})
 
-    if (!(options.omit && item.translatedValue)) acc[itemType].push(item)
+utils.readFolder(config.sourceXml).forEach(async fileName => {
+  console.log(`Processing file: ${fileName}`)
 
+  // read xml file
+  const revisedText = utils.readFile(config.sourceXml, fileName, 'utf8')
+  const xmlData = await utils.parseXml(revisedText)
+
+  const revisedXmlData = xmlData.xliff.file.body['trans-unit']
+    .filter(v => {
+      return !config.stuffToRemove.some(s => v['$'].id.includes(s))
+    })
+
+  console.log(revisedXmlData)
+
+  // create the revised xml
+  // utils.writeFile(config.outputXmlRevised, fileName, JSON.stringify(revisedXmlData))
+
+  const revisedExcelDataReduced = revisedXmlData.reduce((acc, v) => {
+    const key = v['$'].id
+    const item = utils.buildItem(key, v.source, v.target)
+    if (!(item.itemType in acc)) acc[item.itemType] = []
+    if (!(options.omit && item.translatedValue)) acc[item.itemType].push(item)
     return acc
   }, {})
 

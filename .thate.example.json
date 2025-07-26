@@ -1,9 +1,12 @@
 {
   "outputStf": "utils/translations/output-stf",
   "outputStfRevised": "utils/translations/source-stf-revised",
+  "outputXml": "utils/translations/output-xml",
+  "outputXmlRevised": "utils/translations/source-xml-revised",
   "outputXlsx": "utils/translations/output-xlsx",
   "sourceStf": "utils/translations/source-stf",
   "sourceXlsxTranslated": "utils/translations/translated-xlsx",
+  "sourceXml": "utils/translations/source-xml",
   "stuffToRemove": [
     "ActionPlanTemplateItem.",
     "PicklistValue.Standard.ageOver",

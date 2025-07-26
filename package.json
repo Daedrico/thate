@@ -18,7 +18,8 @@
   "bin": "src/thate.js",
   "dependencies": {
     "commander": "^14.0.0",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.31.0",
